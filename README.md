@@ -65,7 +65,7 @@ macsnitch/
 
 ```bash
 # Clone
-git clone https://github.com/yourname/macsnitch.git
+git clone https://github.com/8-BitBirdman/macsnitch.git
 cd macsnitch
 
 # Open in Xcode
