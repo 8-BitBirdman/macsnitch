@@ -16,6 +16,7 @@ struct MacSnitchApp: App {
                 .environmentObject(appDelegate.logger)
                 .environmentObject(appDelegate.extensionManager)
                 .environmentObject(appDelegate.extensionClient)
+                .environmentObject(appDelegate.blockListManager)
         }
         .windowStyle(.titleBar)
         .windowToolbarStyle(.unified)
@@ -25,6 +26,8 @@ struct MacSnitchApp: App {
                     .keyboardShortcut("r", modifiers: .command)
                 Button("Connection Log…") { appDelegate.openMainWindow(tab: .log) }
                     .keyboardShortcut("l", modifiers: .command)
+                Button("Block Lists…")    { appDelegate.openMainWindow(tab: .blockLists) }
+                    .keyboardShortcut("b", modifiers: .command)
                 Button("Status")          { appDelegate.openMainWindow(tab: .status) }
                     .keyboardShortcut("i", modifiers: .command)
             }
@@ -41,7 +44,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     let ruleStore        = RuleStore()
     let extensionClient  = ExtensionClient()
     let extensionManager = FilterExtensionManager()
-    lazy var logger      = ConnectionLogger(store: ruleStore)
+    lazy var logger           = ConnectionLogger(store: ruleStore)
+    lazy var blockListManager = BlockListManager(ruleStore: ruleStore, extensionClient: extensionClient)
     private lazy var xpcServer = XPCServer(delegate: self)
 
     // Status bar
@@ -115,12 +119,28 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         toggle.target = self
         menu.addItem(toggle)
         toggleMenuItem = toggle
+
+        let loginItem = NSMenuItem(title: "Launch at Login",
+                                   action: #selector(toggleLaunchAtLogin), keyEquivalent: "")
+        loginItem.target = self
+        loginItem.state = LaunchAtLoginManager.shared.isEnabled ? .on : .off
+        menu.addItem(loginItem)
         menu.addItem(.separator())
 
         menu.addItem(NSMenuItem(title: "Quit MacSnitch",
                                 action: #selector(NSApplication.terminate(_:)),
                                 keyEquivalent: "q"))
         statusItem?.menu = menu
+    }
+
+    @objc private func toggleLaunchAtLogin() {
+        LaunchAtLoginManager.shared.toggle()
+        // Update checkmark on next menu open
+        if let menu = statusItem?.menu {
+            for item in menu.items where item.action == #selector(toggleLaunchAtLogin) {
+                item.state = LaunchAtLoginManager.shared.isEnabled ? .on : .off
+            }
+        }
     }
 
     @objc private func openRules()   { openMainWindow(tab: .rules) }
@@ -181,9 +201,10 @@ extension AppDelegate: XPCServerDelegate {
 // MARK: - Supporting types
 
 enum MainTab: String, CaseIterable {
-    case rules  = "Rules"
-    case log    = "Log"
-    case status = "Status"
+    case rules      = "Rules"
+    case log        = "Log"
+    case blockLists = "Block Lists"
+    case status     = "Status"
 }
 
 extension Notification.Name {
