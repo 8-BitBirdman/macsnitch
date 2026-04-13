@@ -1,0 +1,656 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BF15F22B3221C7DFA7CA40C8 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A271179D528134CF78D17A; };
+		2FF069E2A547300030F58124 /* AppStatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E6D3A735A4A55B5BB5EAF7; };
+		BA847E8D190F337D3C4815E7 /* BlockListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FCB932A8E1B15BC95C662D; };
+		A6303FCF0275EA9686991597 /* ConnectionLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFBB84535CB2103C574854D; };
+		0D7A00784767AA3079EF7BB7 /* ConnectionPromptCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EF538655588A3D2116E2D5; };
+		7E6E2724EFF110FE63019C41 /* DatabaseMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F92079215BAD76A19642FFB; };
+		3661B2845052A7F820C4E79E /* ExtensionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8177AFA0118911147CC986; };
+		C09A742158FFC5385BD38124 /* FilterExtensionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5073F5245CFD6F4FA5FCE66A; };
+		895DB49E20139069991EF9AD /* LaunchAtLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9DC1F3CC15F7652018941D; };
+		47470F73A86EEF96B9F36AC2 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D68C0C5E47C303067E75B23; };
+		16D4C5AD530017077C37D805 /* RuleImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8699B44FC32C2D8EC7CFF35; };
+		6AE991F4E4EB6190CD49189D /* RuleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746E2E8A064123230E666988; };
+		668B29F51ECE7406F4A25A8B /* XPCServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6451908268BB303F94B33; };
+		F81AB0813E443008BB45EBE2 /* BlockListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB152CFD449663D13F7766; };
+		B000AE60181623B8AB54C7F8 /* ConnectionLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA2949900A344A216019F0; };
+		44748CC5EAA546D45A781E3E /* ConnectionPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92C061CA12AD1CF5F482718; };
+		02032B78F7CCB9216B6758D2 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B99DB9AFE01B3FCC571368D; };
+		0B5D596FA31A1C9DA8AB3062 /* RuleCreatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4171BC4F540167664FAEE11; };
+		A7A1C619E817112D606C60EA /* RulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783CC1E7FBBBF1F2D9F3556F; };
+		459240B1EE9A414145AC0ED0 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D93DA7DD948AB8EFAF5FBAC; };
+		632006FA36031AE800974596 /* IPCMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = A374F13CF503ED6A203F3B9E; };
+		C41E072623FF6CB2733F748F /* main.swift in Sources (ext) */ = {isa = PBXBuildFile; fileRef = 5DAF9D793DF9EABF14697D31; };
+		9B3FDF00BBBED4A2234ADBD4 /* DNSResolver.swift in Sources (ext) */ = {isa = PBXBuildFile; fileRef = DA21F00641438DE7966FEB4B; };
+		6A3FADFEB83F3D6200196F60 /* FilterControlProvider.swift in Sources (ext) */ = {isa = PBXBuildFile; fileRef = 7578CAA880550317DD374EA2; };
+		4E3411428FC77A9C9B5A90A7 /* FilterProvider.swift in Sources (ext) */ = {isa = PBXBuildFile; fileRef = 4DF906CABB7E45C0DA83A7D1; };
+		580879CB2B200490DBFD87F4 /* RuleCache.swift in Sources (ext) */ = {isa = PBXBuildFile; fileRef = DE3CAA34AED86CABE1769BA1; };
+		58493B272B0373CD8F4CFFC6 /* IPCMessages.swift in Sources (ext) */ = {isa = PBXBuildFile; fileRef = A374F13CF503ED6A203F3B9E; };
+		DD550467EEC531DEA77385BA /* MacSnitchTests.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = D176F06934C89DCA9C10BBB2; };
+		15F336906DBB38061B2FF0BF /* IPCMessages.swift in Sources (test) */ = {isa = PBXBuildFile; fileRef = A374F13CF503ED6A203F3B9E; };
+		F5C6EA3CBEA595BE5DE53C71 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FEAD568FDF222A0844E43AA; };
+		B24B4891A38062456A9F51B5 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E920BA23D1CB780EBFAA0905; };
+		6ADE9EEE27747E83C9408586 /* SystemExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0657EE9D6DC37AD501F6C62; };
+		23AF4F7A14ED76A2737BEC6B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D49F205DB0D96FDF467117D2; };
+		D40A649A9A13E056740BBA15 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 630561EEC9398B31637B1CA9; };
+		B0D0B28E3FC9BB37EAC93A63 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD5200766C37316CF8A9C9B4; };
+		5852076AA90C59CF127F7A96 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 336FED820DC2C9F4BE5C0E4D; };
+		6C6F1733A7572159FBF6B4E5 /* MacSnitchExtension in Embed */ = {isa = PBXBuildFile; fileRef = 657350E34AFB37D463DC7294; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		498A6D065FADF2DC8673D384 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C60EC283D2697F9F2F1222A; };
+		4E30B6D387A2DDB46EDF988D /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 6C56025F2B37F731EA4C967B; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6B461CD41EA51ABC93F86EC9 /* Embed System Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (6C6F1733A7572159FBF6B4E5 /* MacSnitchExtension in Embed */,);
+			name = "Embed System Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		98A271179D528134CF78D17A /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		84E6D3A735A4A55B5BB5EAF7 /* AppStatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStatsModel.swift; sourceTree = "<group>"; };
+		98FCB932A8E1B15BC95C662D /* BlockListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListManager.swift; sourceTree = "<group>"; };
+		1DFBB84535CB2103C574854D /* ConnectionLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionLogger.swift; sourceTree = "<group>"; };
+		B9EF538655588A3D2116E2D5 /* ConnectionPromptCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionPromptCoordinator.swift; sourceTree = "<group>"; };
+		1F92079215BAD76A19642FFB /* DatabaseMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseMigrator.swift; sourceTree = "<group>"; };
+		EC8177AFA0118911147CC986 /* ExtensionClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionClient.swift; sourceTree = "<group>"; };
+		5073F5245CFD6F4FA5FCE66A /* FilterExtensionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterExtensionManager.swift; sourceTree = "<group>"; };
+		DD9DC1F3CC15F7652018941D /* LaunchAtLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginManager.swift; sourceTree = "<group>"; };
+		6D68C0C5E47C303067E75B23 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		C8699B44FC32C2D8EC7CFF35 /* RuleImportExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleImportExport.swift; sourceTree = "<group>"; };
+		746E2E8A064123230E666988 /* RuleStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleStore.swift; sourceTree = "<group>"; };
+		C2F6451908268BB303F94B33 /* XPCServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCServer.swift; sourceTree = "<group>"; };
+		95DB152CFD449663D13F7766 /* BlockListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListView.swift; sourceTree = "<group>"; };
+		44EA2949900A344A216019F0 /* ConnectionLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionLogView.swift; sourceTree = "<group>"; };
+		C92C061CA12AD1CF5F482718 /* ConnectionPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionPromptView.swift; sourceTree = "<group>"; };
+		3B99DB9AFE01B3FCC571368D /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
+		A4171BC4F540167664FAEE11 /* RuleCreatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleCreatorView.swift; sourceTree = "<group>"; };
+		783CC1E7FBBBF1F2D9F3556F /* RulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesView.swift; sourceTree = "<group>"; };
+		4D93DA7DD948AB8EFAF5FBAC /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
+		DA21F00641438DE7966FEB4B /* DNSResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNSResolver.swift; sourceTree = "<group>"; };
+		7578CAA880550317DD374EA2 /* FilterControlProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterControlProvider.swift; sourceTree = "<group>"; };
+		4DF906CABB7E45C0DA83A7D1 /* FilterProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterProvider.swift; sourceTree = "<group>"; };
+		DE3CAA34AED86CABE1769BA1 /* RuleCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleCache.swift; sourceTree = "<group>"; };
+		5DAF9D793DF9EABF14697D31 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A374F13CF503ED6A203F3B9E /* IPCMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPCMessages.swift; sourceTree = "<group>"; };
+		D176F06934C89DCA9C10BBB2 /* MacSnitchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacSnitchTests.swift; sourceTree = "<group>"; };
+		6FEAD568FDF222A0844E43AA /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		E920BA23D1CB780EBFAA0905 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		A0657EE9D6DC37AD501F6C62 /* SystemExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemExtensions.framework; path = System/Library/Frameworks/SystemExtensions.framework; sourceTree = SDKROOT; };
+		D49F205DB0D96FDF467117D2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		630561EEC9398B31637B1CA9 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		DD5200766C37316CF8A9C9B4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		336FED820DC2C9F4BE5C0E4D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		996AD237BC284D463E664FFE /* MacSnitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacSnitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		657350E34AFB37D463DC7294 /* MacSnitchExtension.systemextension */ = {isa = PBXFileReference; explicitFileType = wrapper.system-extension; includeInIndex = 0; path = MacSnitchExtension.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
+		05FED624FC2A41C67D990A31 /* MacSnitchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacSnitchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C60EC283D2697F9F2F1222A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		62AA1619964DF62496AB1C43 /* MacSnitchApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacSnitchApp.entitlements; sourceTree = "<group>"; };
+		62C9F34790B5D62731764E45 /* MacSnitchExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacSnitchExtension.entitlements; sourceTree = "<group>"; };
+		B5A4D21FDB9A96A6C7AC45E4 /* MacSnitchApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MacSnitchApp-Info.plist; sourceTree = "<group>"; };
+		21FB5716480994A6F5EF5D94 /* MacSnitchExtension-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MacSnitchExtension-Info.plist; sourceTree = "<group>"; };
+		165B2D0721134BFF7732B997 /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0F87A878AEB94E823836E22B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5C6EA3CBEA595BE5DE53C71 /* NetworkExtension.framework in Frameworks */,
+				B24B4891A38062456A9F51B5 /* ServiceManagement.framework in Frameworks */,
+				6ADE9EEE27747E83C9408586 /* SystemExtensions.framework in Frameworks */,
+				23AF4F7A14ED76A2737BEC6B /* SwiftUI.framework in Frameworks */,
+				D40A649A9A13E056740BBA15 /* UserNotifications.framework in Frameworks */,
+				B0D0B28E3FC9BB37EAC93A63 /* AppKit.framework in Frameworks */,
+				5852076AA90C59CF127F7A96 /* Foundation.framework in Frameworks */,
+				4E30B6D387A2DDB46EDF988D /* GRDB in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB63E9FE1886F58A35850EDD /* Frameworks (ext) */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79A4D45905684BD40D53A6E7 /* Frameworks (test) */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		71DC27D9F8E3B109C877BFC4 = {
+			isa = PBXGroup;
+			children = (
+				42006AB264CF2AB66A8087C0 /* MacSnitchApp */,
+				48FD28149B094BD3C42F1FDD /* NetworkExtension */,
+				3AC73B1B9BE32CC7AB22405E /* Shared */,
+				EFAD9858B20B2451C5A8390C /* Tests */,
+				609423A1F0CC8EB5DE0F8E96 /* Configuration */,
+				113236722DEE1DC96F378B9D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		113236722DEE1DC96F378B9D = {
+			isa = PBXGroup;
+			children = (
+				996AD237BC284D463E664FFE /* MacSnitch.app */,
+				657350E34AFB37D463DC7294 /* MacSnitchExtension.systemextension */,
+				05FED624FC2A41C67D990A31 /* MacSnitchTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		42006AB264CF2AB66A8087C0 /* MacSnitchApp */ = {
+			isa = PBXGroup;
+			children = (
+				98A271179D528134CF78D17A /* App.swift */,
+				9C60EC283D2697F9F2F1222A /* Assets.xcassets */,
+				CE109A67F825EF986677192A /* Models */,
+				5FDF5DA8B29E01B633C422BA /* Services */,
+				E625806AF68F93E062EACFC3 /* Views */,
+			);
+			path = MacSnitchApp;
+			sourceTree = "<group>";
+		};
+		CE109A67F825EF986677192A /* Models */ = {
+			isa = PBXGroup;
+			children = (				84E6D3A735A4A55B5BB5EAF7 /* AppStatsModel.swift */,);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5FDF5DA8B29E01B633C422BA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				98FCB932A8E1B15BC95C662D /* BlockListManager.swift */,
+				1DFBB84535CB2103C574854D /* ConnectionLogger.swift */,
+				B9EF538655588A3D2116E2D5 /* ConnectionPromptCoordinator.swift */,
+				1F92079215BAD76A19642FFB /* DatabaseMigrator.swift */,
+				EC8177AFA0118911147CC986 /* ExtensionClient.swift */,
+				5073F5245CFD6F4FA5FCE66A /* FilterExtensionManager.swift */,
+				DD9DC1F3CC15F7652018941D /* LaunchAtLoginManager.swift */,
+				6D68C0C5E47C303067E75B23 /* NotificationManager.swift */,
+				C8699B44FC32C2D8EC7CFF35 /* RuleImportExport.swift */,
+				746E2E8A064123230E666988 /* RuleStore.swift */,
+				C2F6451908268BB303F94B33 /* XPCServer.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E625806AF68F93E062EACFC3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				95DB152CFD449663D13F7766 /* BlockListView.swift */,
+				44EA2949900A344A216019F0 /* ConnectionLogView.swift */,
+				C92C061CA12AD1CF5F482718 /* ConnectionPromptView.swift */,
+				3B99DB9AFE01B3FCC571368D /* MainContentView.swift */,
+				A4171BC4F540167664FAEE11 /* RuleCreatorView.swift */,
+				783CC1E7FBBBF1F2D9F3556F /* RulesView.swift */,
+				4D93DA7DD948AB8EFAF5FBAC /* StatusView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		48FD28149B094BD3C42F1FDD /* NetworkExtension */ = {
+			isa = PBXGroup;
+			children = (
+				DA21F00641438DE7966FEB4B /* DNSResolver.swift */,
+				7578CAA880550317DD374EA2 /* FilterControlProvider.swift */,
+				4DF906CABB7E45C0DA83A7D1 /* FilterProvider.swift */,
+				DE3CAA34AED86CABE1769BA1 /* RuleCache.swift */,
+				5DAF9D793DF9EABF14697D31 /* main.swift */,
+			);
+			path = NetworkExtension;
+			sourceTree = "<group>";
+		};
+		3AC73B1B9BE32CC7AB22405E /* Shared */ = {
+			isa = PBXGroup;
+			children = (				A374F13CF503ED6A203F3B9E /* IPCMessages.swift */,);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		EFAD9858B20B2451C5A8390C /* Tests */ = {
+			isa = PBXGroup;
+			children = (				D176F06934C89DCA9C10BBB2 /* MacSnitchTests.swift */,);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		609423A1F0CC8EB5DE0F8E96 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				62AA1619964DF62496AB1C43 /* MacSnitchApp.entitlements */,
+				62C9F34790B5D62731764E45 /* MacSnitchExtension.entitlements */,
+				B5A4D21FDB9A96A6C7AC45E4 /* MacSnitchApp-Info.plist */,
+				21FB5716480994A6F5EF5D94 /* MacSnitchExtension-Info.plist */,
+				165B2D0721134BFF7732B997 /* ExportOptions.plist */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F01C2E624E08A72BC055B46F /* MacSnitchApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2EF0BFE4C820F767E4303FC;
+			buildPhases = (
+				6B366E3A6159DC0A46CE6169 /* Sources */,
+				0F87A878AEB94E823836E22B /* Frameworks */,
+				34E903FB6EA77173817200D0 /* Resources */,
+				6B461CD41EA51ABC93F86EC9 /* Embed System Extensions */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = MacSnitchApp;
+			packageProductDependencies = (6C56025F2B37F731EA4C967B /* GRDB */,);
+			productName = MacSnitchApp;
+			productReference = 996AD237BC284D463E664FFE;
+			productType = "com.apple.product-type.application";
+		};
+		B38F1907A909A3BFAB09298F /* MacSnitchExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBE29E1AF9D08E7452A781F4;
+			buildPhases = (
+				05646A24AE3495D2C70C6EF6 /* Sources */,
+				BB63E9FE1886F58A35850EDD /* Frameworks */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = MacSnitchExtension;
+			productName = MacSnitchExtension;
+			productReference = 657350E34AFB37D463DC7294;
+			productType = "com.apple.product-type.system-extension";
+		};
+		BF7A7D35C945289B6BFD3C14 /* MacSnitchTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 737D10EBE73C7027F91DA727;
+			buildPhases = (
+				0D9FED2C54C8F345B7A1EB3B /* Sources */,
+				79A4D45905684BD40D53A6E7 /* Frameworks */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = MacSnitchTests;
+			productName = MacSnitchTests;
+			productReference = 05FED624FC2A41C67D990A31;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6B366E3A6159DC0A46CE6169 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF15F22B3221C7DFA7CA40C8 /* App.swift in Sources */,
+				2FF069E2A547300030F58124 /* AppStatsModel.swift in Sources */,
+				BA847E8D190F337D3C4815E7 /* BlockListManager.swift in Sources */,
+				A6303FCF0275EA9686991597 /* ConnectionLogger.swift in Sources */,
+				0D7A00784767AA3079EF7BB7 /* ConnectionPromptCoordinator.swift in Sources */,
+				7E6E2724EFF110FE63019C41 /* DatabaseMigrator.swift in Sources */,
+				3661B2845052A7F820C4E79E /* ExtensionClient.swift in Sources */,
+				C09A742158FFC5385BD38124 /* FilterExtensionManager.swift in Sources */,
+				895DB49E20139069991EF9AD /* LaunchAtLoginManager.swift in Sources */,
+				47470F73A86EEF96B9F36AC2 /* NotificationManager.swift in Sources */,
+				16D4C5AD530017077C37D805 /* RuleImportExport.swift in Sources */,
+				6AE991F4E4EB6190CD49189D /* RuleStore.swift in Sources */,
+				668B29F51ECE7406F4A25A8B /* XPCServer.swift in Sources */,
+				F81AB0813E443008BB45EBE2 /* BlockListView.swift in Sources */,
+				B000AE60181623B8AB54C7F8 /* ConnectionLogView.swift in Sources */,
+				44748CC5EAA546D45A781E3E /* ConnectionPromptView.swift in Sources */,
+				02032B78F7CCB9216B6758D2 /* MainContentView.swift in Sources */,
+				0B5D596FA31A1C9DA8AB3062 /* RuleCreatorView.swift in Sources */,
+				A7A1C619E817112D606C60EA /* RulesView.swift in Sources */,
+				459240B1EE9A414145AC0ED0 /* StatusView.swift in Sources */,
+				632006FA36031AE800974596 /* IPCMessages.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		05646A24AE3495D2C70C6EF6 /* Sources (ext) */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C41E072623FF6CB2733F748F /* main.swift in Sources */,
+				9B3FDF00BBBED4A2234ADBD4 /* DNSResolver.swift in Sources */,
+				6A3FADFEB83F3D6200196F60 /* FilterControlProvider.swift in Sources */,
+				4E3411428FC77A9C9B5A90A7 /* FilterProvider.swift in Sources */,
+				580879CB2B200490DBFD87F4 /* RuleCache.swift in Sources */,
+				58493B272B0373CD8F4CFFC6 /* IPCMessages.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0D9FED2C54C8F345B7A1EB3B /* Sources (test) */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD550467EEC531DEA77385BA /* MacSnitchTests.swift in Sources */,
+				15F336906DBB38061B2FF0BF /* IPCMessages.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+		34E903FB6EA77173817200D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (498A6D065FADF2DC8673D384 /* Assets.xcassets in Resources */,);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					F01C2E624E08A72BC055B46F  = { CreatedOnToolsVersion = 15.0; };
+					B38F1907A909A3BFAB09298F  = { CreatedOnToolsVersion = 15.0; };
+					BF7A7D35C945289B6BFD3C14 = { CreatedOnToolsVersion = 15.0; TestTargetID = F01C2E624E08A72BC055B46F; };
+				};
+			};
+			buildConfigurationList = 554413E5B571899B8DE64F47;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base,);
+			mainGroup = 71DC27D9F8E3B109C877BFC4;
+			packageReferences = (D7191CFF5635626BE8138104 /* XCRemoteSwiftPackageReference "GRDB.swift" */,);
+			productRefGroup = 113236722DEE1DC96F378B9D;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F01C2E624E08A72BC055B46F /* MacSnitchApp */,
+				B38F1907A909A3BFAB09298F /* MacSnitchExtension */,
+				BF7A7D35C945289B6BFD3C14 /* MacSnitchTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		F3E469D9CF2672B87FCF79D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("DEBUG=1", "$(inherited)");
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		4FF944F08AACB37CF71EA40B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F28A85BE60487DC1BDCF015E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("DEBUG=1", "$(inherited)");
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				APPLE_SILICON_ARCH = arm64;
+				CODE_SIGN_ENTITLEMENTS = "Configuration/MacSnitchApp.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "Configuration/MacSnitchApp-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.macsnitch;
+				PRODUCT_NAME = MacSnitch;
+			};
+			name = Debug;
+		};
+		A86756326B10413DEF26E20B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				VALIDATE_PRODUCT = YES;
+				APPLE_SILICON_ARCH = arm64;
+				CODE_SIGN_ENTITLEMENTS = "Configuration/MacSnitchApp.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "Configuration/MacSnitchApp-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.macsnitch;
+				PRODUCT_NAME = MacSnitch;
+			};
+			name = Release;
+		};
+		D22BD5AE13F98BEA2A1DFAE1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("DEBUG=1", "$(inherited)");
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				CODE_SIGN_ENTITLEMENTS = "Configuration/MacSnitchExtension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "Configuration/MacSnitchExtension-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.macsnitch.extension;
+				PRODUCT_NAME = MacSnitchExtension;
+			};
+			name = Debug;
+		};
+		9CE5E2D79507632114198056 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				VALIDATE_PRODUCT = YES;
+				CODE_SIGN_ENTITLEMENTS = "Configuration/MacSnitchExtension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "Configuration/MacSnitchExtension-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.macsnitch.extension;
+				PRODUCT_NAME = MacSnitchExtension;
+			};
+			name = Release;
+		};
+		A6DC6CAC4D2233A7629A1FCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("DEBUG=1", "$(inherited)");
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.macsnitch.tests;
+				PRODUCT_NAME = MacSnitchTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacSnitch.app/Contents/MacOS/MacSnitch";
+			};
+			name = Debug;
+		};
+		62B2CC67EBFCE271C9916763 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				VALIDATE_PRODUCT = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.macsnitch.tests;
+				PRODUCT_NAME = MacSnitchTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacSnitch.app/Contents/MacOS/MacSnitch";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		554413E5B571899B8DE64F47 /* Build configuration list for PBXProject "MacSnitch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (F3E469D9CF2672B87FCF79D5 /* Debug */, 4FF944F08AACB37CF71EA40B /* Release */,);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2EF0BFE4C820F767E4303FC /* Build configuration list for PBXNativeTarget "MacSnitchApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (F28A85BE60487DC1BDCF015E /* Debug */, A86756326B10413DEF26E20B /* Release */,);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBE29E1AF9D08E7452A781F4 /* Build configuration list for PBXNativeTarget "MacSnitchExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (D22BD5AE13F98BEA2A1DFAE1 /* Debug */, 9CE5E2D79507632114198056 /* Release */,);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		737D10EBE73C7027F91DA727 /* Build configuration list for PBXNativeTarget "MacSnitchTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (A6DC6CAC4D2233A7629A1FCC /* Debug */, 62B2CC67EBFCE271C9916763 /* Release */,);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D7191CFF5635626BE8138104 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			requirement = { kind = upToNextMajorVersion; minimumVersion = "6.0.0"; };
+			repositoryURL = "https://github.com/groue/GRDB.swift.git";
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6C56025F2B37F731EA4C967B /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7191CFF5635626BE8138104;
+			productName = GRDB;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}

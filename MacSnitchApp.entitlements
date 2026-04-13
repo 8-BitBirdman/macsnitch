@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Required to install the System Extension -->
+    <key>com.apple.developer.system-extension.install</key>
+    <true/>
+
+    <!-- Hardened Runtime: allow unsigned executable memory (not needed here, but common) -->
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <false/>
+
+    <!-- Network client — for XPC back-channel to extension -->
+    <key>com.apple.security.network.client</key>
+    <true/>
+
+    <!-- App Sandbox: OFF — System Extension installer requires non-sandboxed app -->
+    <!-- Note: MacSnitch must NOT be sandboxed due to System Extension requirements -->
+    <key>com.apple.security.app-sandbox</key>
+    <false/>
+
+    <!-- Allow reading/writing to ~/Library/Application Support/MacSnitch -->
+    <key>com.apple.security.files.user-selected.read-write</key>
+    <true/>
+</dict>
+</plist>

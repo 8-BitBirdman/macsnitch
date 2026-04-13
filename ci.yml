@@ -1,0 +1,174 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # ── Lint ─────────────────────────────────────────────────────────────────
+  lint:
+    name: SwiftLint
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install SwiftLint
+        run: brew install swiftlint
+
+      - name: Run SwiftLint
+        run: swiftlint lint --strict --config .swiftlint.yml
+
+  # ── Unit Tests ────────────────────────────────────────────────────────────
+  test:
+    name: Unit Tests
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
+
+      - name: Resolve SPM dependencies
+        run: swift package resolve
+
+      - name: Run tests
+        run: |
+          swift test \
+            --configuration debug \
+            --parallel \
+            2>&1 | tee test-output.txt
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-output
+          path: test-output.txt
+
+  # ── Build (no signing) ────────────────────────────────────────────────────
+  build:
+    name: Build (unsigned)
+    runs-on: macos-14
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
+
+      - name: Resolve SPM dependencies
+        run: swift package resolve
+
+      - name: Build MacSnitchApp (no signing)
+        run: |
+          xcodebuild \
+            -project MacSnitch.xcodeproj \
+            -scheme MacSnitchApp \
+            -configuration Debug \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            build \
+            | xcpretty
+        continue-on-error: true
+        # Build will fail without a signing identity and the content-filter
+        # entitlement, so we mark it continue-on-error until a signed runner
+        # is set up. The unit test job above is the canonical quality gate.
+
+      - name: Build extension (no signing)
+        run: |
+          xcodebuild \
+            -project MacSnitch.xcodeproj \
+            -scheme MacSnitchExtension \
+            -configuration Debug \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            build \
+            | xcpretty
+        continue-on-error: true
+
+  # ── Release Archive ───────────────────────────────────────────────────────
+  release:
+    name: Release Archive
+    runs-on: macos-14
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [ lint, test, build ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
+
+      - name: Import signing certificate
+        env:
+          CERTIFICATE_BASE64: ${{ secrets.DEVELOPER_ID_CERTIFICATE_BASE64 }}
+          CERTIFICATE_PASSWORD: ${{ secrets.DEVELOPER_ID_CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          # Create a temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+
+          # Import the certificate
+          echo "$CERTIFICATE_BASE64" | base64 --decode > certificate.p12
+          security import certificate.p12 \
+            -k build.keychain \
+            -P "$CERTIFICATE_PASSWORD" \
+            -T /usr/bin/codesign
+          security set-key-partition-list \
+            -S apple-tool:,apple: \
+            -s -k "$KEYCHAIN_PASSWORD" build.keychain
+
+      - name: Archive
+        env:
+          DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
+        run: |
+          xcodebuild \
+            -project MacSnitch.xcodeproj \
+            -scheme MacSnitchApp \
+            -configuration Release \
+            -archivePath build/MacSnitch.xcarchive \
+            DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
+            archive \
+            | xcpretty
+
+      - name: Export
+        run: |
+          xcodebuild \
+            -exportArchive \
+            -archivePath build/MacSnitch.xcarchive \
+            -exportPath build/MacSnitch \
+            -exportOptionsPlist Configuration/ExportOptions.plist \
+            | xcpretty
+
+      - name: Notarize
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.DEVELOPMENT_TEAM }}
+        run: |
+          xcrun notarytool submit build/MacSnitch/MacSnitch.app \
+            --apple-id "$APPLE_ID" \
+            --password "$APPLE_APP_PASSWORD" \
+            --team-id "$APPLE_TEAM_ID" \
+            --wait
+
+          xcrun stapler staple build/MacSnitch/MacSnitch.app
+
+      - name: Create DMG
+        run: |
+          hdiutil create \
+            -volname "MacSnitch" \
+            -srcfolder build/MacSnitch/MacSnitch.app \
+            -ov -format UDZO \
+            build/MacSnitch.dmg
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/MacSnitch.dmg
+          generate_release_notes: true

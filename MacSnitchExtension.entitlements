@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!--
+        IMPORTANT: The content-filter entitlement is RESTRICTED.
+        You must request it from Apple at:
+        https://developer.apple.com/contact/request/network-extension-content-filter
+
+        Without this entitlement, the extension will fail to activate.
+    -->
+    <key>com.apple.developer.network-extension.content-filter</key>
+    <true/>
+
+    <!-- Allows outbound network connections from the extension itself (for DNS resolution) -->
+    <key>com.apple.security.network.client</key>
+    <true/>
+
+    <!-- System extensions must NOT be sandboxed -->
+    <key>com.apple.security.app-sandbox</key>
+    <false/>
+
+    <!-- Required for XPC listener (mach service) -->
+    <key>com.apple.security.temporary-exception.mach-register.global-name</key>
+    <array>
+        <string>com.macsnitch.extension.xpc</string>
+    </array>
+</dict>
+</plist>
