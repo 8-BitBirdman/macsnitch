@@ -2,6 +2,7 @@
 // Main entry point. Owns all service singletons and wires them together.
 
 import SwiftUI
+import AppKit
 import NetworkExtension
 import Combine
 

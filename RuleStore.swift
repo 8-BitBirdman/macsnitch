@@ -19,11 +19,12 @@ private struct RuleRecord: Codable, FetchableRecord, PersistableRecord {
     var created: Date
     var processName: String
     var processPath: String
-    var action: String          // RuleAction.rawValue
-    var duration: String        // RuleDuration.rawValue
-    var matchJSON: String       // JSONEncoded RuleMatch
+    var action: String
+    var duration: String
+    var matchJSON: String
     var isEnabled: Bool
     var notes: String
+    var hitCount: Int       // added in migration v4
 
     init(rule: Rule) throws {
         id = rule.id.uuidString
@@ -36,6 +37,7 @@ private struct RuleRecord: Codable, FetchableRecord, PersistableRecord {
         matchJSON = String(data: matchData, encoding: .utf8) ?? "{}"
         isEnabled = rule.isEnabled
         notes = rule.notes
+        hitCount = 0
     }
 
     func toRule() throws -> Rule {
@@ -45,7 +47,6 @@ private struct RuleRecord: Codable, FetchableRecord, PersistableRecord {
             let ruleDuration = RuleDuration(rawValue: duration),
             let matchData = matchJSON.data(using: .utf8)
         else { throw RuleStoreError.corruptRecord }
-
         let match = try JSONDecoder().decode(RuleMatch.self, from: matchData)
         return Rule(id: uuid, created: created,
                     processName: processName, processPath: processPath,
@@ -69,6 +70,8 @@ private struct LogRecord: Codable, FetchableRecord, PersistableRecord {
     var proto: String
     var verdict: String
     var ruleID: String?
+    var sourcePort: Int      // added in migration v3
+    var sourceAddress: String // added in migration v3
 
     init(entry: ConnectionLogEntry) {
         id = entry.id.uuidString
@@ -81,6 +84,8 @@ private struct LogRecord: Codable, FetchableRecord, PersistableRecord {
         proto = entry.connection.protocol.rawValue
         verdict = entry.verdict.rawValue
         ruleID = entry.ruleID?.uuidString
+        sourcePort = Int(entry.connection.sourcePort)
+        sourceAddress = entry.connection.sourceAddress
     }
 
     func toEntry() -> ConnectionLogEntry? {
@@ -90,7 +95,7 @@ private struct LogRecord: Codable, FetchableRecord, PersistableRecord {
 
         let conn = ConnectionInfo(
             pid: -1, processName: processName, processPath: processPath,
-            sourceAddress: "", sourcePort: 0,
+            sourceAddress: sourceAddress, sourcePort: UInt16(sourcePort),
             destinationAddress: destinationAddress,
             destinationPort: UInt16(destinationPort),
             protocol: p, timestamp: timestamp,
@@ -127,7 +132,7 @@ final class RuleStore: ObservableObject {
         let path = dir.appendingPathComponent("macsnitch.sqlite").path
         do {
             db = try DatabaseQueue(path: path)
-            try DatabaseMigrator.migrate(db)
+            try AppDatabaseMigrator.migrate(db)
             log.info("Database ready at \(path)")
         } catch {
             log.error("Failed to open/migrate database: \(error)")

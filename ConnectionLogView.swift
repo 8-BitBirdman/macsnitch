@@ -2,6 +2,7 @@
 // Live connection log with working pause, search, verdict filter, and row detail.
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct ConnectionLogView: View {
     @EnvironmentObject var logger: ConnectionLogger

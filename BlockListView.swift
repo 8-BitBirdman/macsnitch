@@ -2,6 +2,7 @@
 // UI for managing domain blocklists — add, remove, refresh, toggle.
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct BlockListView: View {
     @EnvironmentObject var blockListManager: BlockListManager

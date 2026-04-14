@@ -7,7 +7,7 @@ import OSLog
 
 private let log = Logger(subsystem: "com.macsnitch.app", category: "Migrations")
 
-enum DatabaseMigrator {
+enum AppDatabaseMigrator {
 
     /// Apply all pending migrations to `db` in order.
     /// Safe to call every launch — already-applied migrations are skipped.

@@ -39,8 +39,10 @@ final class RuleImportExport {
         panel.allowedContentTypes = [.json]
         panel.canCreateDirectories = true
 
-        let response = await panel.beginSheetModal(for: NSApp.keyWindow ?? NSApp.mainWindow!)
-        guard response == .OK, let url = panel.url else { throw ImportExportError.noFileSelected }
+        // runModal() is safe without a parent window (menu bar app has no main window always open)
+        guard panel.runModal() == .OK, let url = panel.url else {
+            throw ImportExportError.noFileSelected
+        }
 
         do {
             try data.write(to: url, options: .atomic)
@@ -59,13 +61,14 @@ final class RuleImportExport {
         panel.allowsMultipleSelection = false
         panel.canChooseDirectories = false
 
-        let response = await panel.beginSheetModal(for: NSApp.keyWindow ?? NSApp.mainWindow!)
-        guard response == .OK, let url = panel.url else { throw ImportExportError.noFileSelected }
+        guard panel.runModal() == .OK, let url = panel.url else {
+            throw ImportExportError.noFileSelected
+        }
 
         do {
             let data = try Data(contentsOf: url)
             let added = try store.importRules(from: data)
-            // Push newly imported rules into the extension.
+            // Push newly imported permanent rules into the extension.
             for rule in store.rules.suffix(added) {
                 extensionClient.push(rule: rule)
             }

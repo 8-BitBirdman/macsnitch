@@ -3,6 +3,7 @@
 // Accessible from the Rules tab toolbar.
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct RuleCreatorView: View {
     @EnvironmentObject var ruleStore: RuleStore
