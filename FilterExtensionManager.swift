@@ -1,15 +1,18 @@
 // MacSnitchApp/Services/FilterExtensionManager.swift
-// Installs and enables the MacSnitch Network Extension using SystemExtensions framework.
+// Installs and enables the MacSnitch Network Extension.
+// All @Published mutations are dispatched to the main queue because
+// NEFilterManager and OSSystemExtensionRequest callbacks fire on arbitrary queues.
 
 import NetworkExtension
 import SystemExtensions
-import OSLog
 import UserNotifications
+import OSLog
 
 private let log = Logger(subsystem: "com.macsnitch.app", category: "ExtensionManager")
 
+@MainActor
 final class FilterExtensionManager: NSObject, ObservableObject {
-    @Published private(set) var isEnabled = false
+    @Published private(set) var isEnabled    = false
     @Published private(set) var statusMessage = "Checking…"
 
     private let extensionBundleID = "com.macsnitch.extension"
@@ -18,14 +21,16 @@ final class FilterExtensionManager: NSObject, ObservableObject {
 
     func checkStatus() {
         NEFilterManager.shared().loadFromPreferences { [weak self] error in
-            guard let self else { return }
-            if let error {
-                log.error("loadFromPreferences: \(error)")
-                self.statusMessage = "Error loading preferences"
-                return
+            DispatchQueue.main.async {
+                if let error {
+                    log.error("loadFromPreferences: \(error)")
+                    self?.statusMessage = "Error loading preferences"
+                    return
+                }
+                let enabled = NEFilterManager.shared().isEnabled
+                self?.isEnabled      = enabled
+                self?.statusMessage  = enabled ? "Active" : "Inactive"
             }
-            self.isEnabled = NEFilterManager.shared().isEnabled
-            self.statusMessage = self.isEnabled ? "Active" : "Inactive"
         }
     }
 
@@ -40,11 +45,13 @@ final class FilterExtensionManager: NSObject, ObservableObject {
     func disable() {
         NEFilterManager.shared().isEnabled = false
         NEFilterManager.shared().saveToPreferences { [weak self] error in
-            if let error {
-                log.error("saveToPreferences: \(error)")
-            } else {
-                self?.isEnabled = false
-                self?.statusMessage = "Inactive"
+            DispatchQueue.main.async {
+                if let error {
+                    log.error("saveToPreferences: \(error)")
+                } else {
+                    self?.isEnabled      = false
+                    self?.statusMessage  = "Inactive"
+                }
             }
         }
         let req = OSSystemExtensionRequest.deactivationRequest(
@@ -59,46 +66,60 @@ final class FilterExtensionManager: NSObject, ObservableObject {
         let fm = NEFilterManager.shared()
         fm.localizedDescription = "MacSnitch Application Firewall"
         let cfg = NEFilterProviderConfiguration()
-        cfg.filterSockets = true
-        cfg.filterPackets = false
+        cfg.filterSockets  = true
+        cfg.filterPackets  = false
         fm.providerConfiguration = cfg
         fm.isEnabled = true
         fm.saveToPreferences { [weak self] error in
-            if let error {
-                log.error("saveToPreferences: \(error)")
-                self?.statusMessage = "Failed to enable"
-            } else {
-                self?.isEnabled = true
-                self?.statusMessage = "Active"
-                log.info("Content filter enabled")
+            DispatchQueue.main.async {
+                if let error {
+                    log.error("saveToPreferences: \(error)")
+                    self?.statusMessage = "Failed to enable"
+                } else {
+                    self?.isEnabled     = true
+                    self?.statusMessage = "Active"
+                    log.info("Content filter enabled")
+                }
             }
         }
     }
 }
 
 // MARK: - OSSystemExtensionRequestDelegate
+// Callbacks from OSSystemExtensionManager fire on the queue passed to the request
+// (we pass .main above), so @MainActor properties are safe to mutate directly here.
 
 extension FilterExtensionManager: OSSystemExtensionRequestDelegate {
-    func request(_ request: OSSystemExtensionRequest,
-                 didFinishWithResult result: OSSystemExtensionRequest.Result) {
+
+    nonisolated func request(_ request: OSSystemExtensionRequest,
+                             didFinishWithResult result: OSSystemExtensionRequest.Result) {
         log.info("Extension request result: \(result.rawValue)")
-        if result == .completed { enableContentFilter() }
+        if result == .completed {
+            Task { @MainActor in self.enableContentFilter() }
+        }
     }
 
-    func request(_ request: OSSystemExtensionRequest, didFailWithError error: Error) {
+    nonisolated func request(_ request: OSSystemExtensionRequest,
+                             didFailWithError error: Error) {
         log.error("Extension request failed: \(error)")
-        statusMessage = "Extension error: \(error.localizedDescription)"
+        Task { @MainActor in
+            self.statusMessage = "Extension error: \(error.localizedDescription)"
+        }
     }
 
-    func requestNeedsUserApproval(_ request: OSSystemExtensionRequest) {
-        statusMessage = "Approval needed in System Settings → Privacy & Security"
+    nonisolated func requestNeedsUserApproval(_ request: OSSystemExtensionRequest) {
         log.info("Needs user approval")
-        NotificationManager.shared.notifyNeedsApproval()
+        Task { @MainActor in
+            self.statusMessage = "Approval needed in System Settings → Privacy & Security"
+            NotificationManager.shared.notifyNeedsApproval()
+        }
     }
 
-    func request(_ request: OSSystemExtensionRequest,
-                 actionForReplacingExtension existing: OSSystemExtensionProperties,
-                 withExtension ext: OSSystemExtensionProperties) -> OSSystemExtensionRequest.ReplacementAction {
+    nonisolated func request(
+        _ request: OSSystemExtensionRequest,
+        actionForReplacingExtension existing: OSSystemExtensionProperties,
+        withExtension ext: OSSystemExtensionProperties
+    ) -> OSSystemExtensionRequest.ReplacementAction {
         log.info("Replacing extension \(existing.bundleShortVersion) → \(ext.bundleShortVersion)")
         return .replace
     }
