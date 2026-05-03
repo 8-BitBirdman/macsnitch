@@ -1,121 +1,80 @@
-# MacSnitch Architecture
+# 🏗️ MacSnitch Architecture
 
-## Overview
+This document provides a deep technical overview of how MacSnitch operates at the system level.
 
-MacSnitch is a macOS application firewall that intercepts outbound network connections and prompts the user to allow or deny them. It is a native macOS port of [OpenSnitch](https://github.com/evilsocket/opensnitch).
+---
 
-## Components
+## 🛰️ System Extension Design
 
-### 1. Network Extension (`MacSnitchExtension`)
+MacSnitch utilizes a `NEFilterDataProvider` system extension to achieve low-level network interception. Unlike traditional app extensions, this system extension runs as a separate background process managed by `launchd` and the `OSSystemExtensionManager`.
 
-A **System Extension** implementing `NEFilterDataProvider`. This is the kernel-adjacent component that Apple provides for content filtering on macOS. It:
+### Why System Extensions?
+*   **Persistence**: They run independently of the main app, providing protection even if the UI is closed.
+*   **Privilege**: They have the necessary entitlements to intercept all system-wide TCP/UDP traffic.
+*   **Security**: They are sandboxed (via the Network Extension sandbox) and require explicit user approval in System Settings.
 
-- Receives every new TCP/UDP socket flow before it reaches the network
-- Looks up the originating process via the flow's audit token
-- Checks a local rule cache for a known verdict
-- If no rule exists, pauses the flow and sends a prompt to the app over XPC
-- Resumes the flow with the verdict once the user decides
+### The Filter Lifecycle
+1.  **Interception**: `FilterProvider.handleNewFlow(_:)` is called for every outbound connection.
+2.  **Fast Path**: The extension checks its internal `RuleCache`. If a match is found (Allowed/Blocked), it returns a verdict in $O(1)$ time.
+3.  **Slow Path**: If no rule exists, the flow is paused. The extension resolves the destination IP via `DNSResolver` and sends an XPC prompt to the app.
+4.  **Verdict**: Once the user decides (or the app's `RuleStore` finds a match), the extension resumes the flow with the final verdict.
 
-**Key APIs:**
-- `NetworkExtension.NEFilterDataProvider`
-- `NetworkExtension.NEFilterSocketFlow`
-- `SystemExtensions.OSSystemExtensionRequest`
+---
 
-### 2. MacSnitch App (`MacSnitchApp`)
+## 🚄 Rule Matching Engine
 
-A **menu bar SwiftUI app** that:
+The rule matching logic is designed for extreme scale and accuracy.
 
-- Hosts an XPC listener to receive prompts from the extension
-- Shows a floating panel (`NSPanel`) with connection details and allow/deny buttons
-- Manages rules in a `RuleStore` (SQLite via GRDB, falling back to JSON)
-- Pushes rule changes back to the extension's cache over a separate XPC connection
-- Provides a settings window (`RulesView`) for managing saved rules
+### Subdomain Wildcards
+Rules support the `*.domain.com` pattern. The matching algorithm:
+1.  Splits hostnames into domain segments.
+2.  Performs reverse suffix matching to catch subdomains.
+3.  Ensures that `*.google.com` matches `api.google.com` but not `fakegoogle.com`.
 
-### 3. Shared (`Shared/`)
+### Multi-Level Caching
+*   **Persistent**: All rules are stored in a SQLite database via **GRDB.swift**.
+*   **In-Memory (App)**: The `RuleStore` maintains a hot cache of rules for rapid dashboard rendering.
+*   **In-Memory (Extension)**: The `RuleCache` maintains a thread-safe, indexed dictionary of rules for $O(1)$ packet filtering.
 
-Swift types shared between both targets (extension + app):
-- `ConnectionInfo` — describes an intercepted connection
-- `Rule`, `RuleAction`, `RuleMatch`, `RuleDuration` — rule model
-- `Verdict` — allow/deny
-- `MacSnitchAppXPCProtocol`, `MacSnitchExtensionXPCProtocol` — XPC contracts
-- `XPC` constants (mach service names)
+---
 
-## Data Flow
+## 🔒 XPC Communication & Security
 
-```
-[TCP/UDP socket opened by any app]
-          │
-          ▼
-[NEFilterDataProvider.handleNewFlow()]
-          │
-          ├── Rule cache hit? ──► Resume with cached verdict
-          │
-          └── No rule ──► Pause flow
-                              │
-                              ▼
-                    [XPC → MacSnitchApp]
-                              │
-                              ▼
-                    [ConnectionPromptView shown]
-                              │
-                    [User clicks Allow / Deny]
-                              │
-                              ▼
-                    [VerdictReply → Extension over XPC]
-                              │
-                              ├── Cache rule if "always"
-                              │
-                              └── Resume paused flow with verdict
-```
+MacSnitch uses two dedicated Mach services for inter-process communication:
 
-## IPC: XPC
+1.  **`com.macsnitch.app.xpc`**: Extension → App (Requesting verdicts, reporting logs).
+2.  **`com.macsnitch.extension.xpc`**: App → Extension (Syncing rules, clearing sessions).
 
-Two XPC mach services:
+### Hardened Handshaking
+*   The `XPCServer` validates the `auditToken` of every connecting process.
+*   It verifies the `processIdentifier` (PID) to ensure only the authorized MacSnitch extension can communicate with the app.
+*   All data is serialized using `Codable` and `JSONEncoder`, ensuring a type-safe and robust protocol.
 
-| Service | Direction | Purpose |
-|---|---|---|
-| `com.macsnitch.app.xpc` | Extension → App | Send connection prompt, receive verdict |
-| `com.macsnitch.extension.xpc` | App → Extension | Push rule updates |
+---
 
-## Rule Model
+## 📊 Connection Auditing & Stats
 
-Rules are matched in order. A rule consists of:
-- **processPath** — absolute path of the executable (or `*` for wildcard)
-- **action** — `allow` or `deny`
-- **duration** — `once`, `session`, or `permanent`
-- **match** — one of:
-  - `.process` — matches any connection from this process
-  - `.destination(host:)` — matches a specific IP or hostname
-  - `.destinationPort(port:)` — matches a specific port
-  - `.destinationAndPort(host:port:)` — exact match
+Connection logging is performed asynchronously to avoid blocking the network path.
 
-## Known Limitations / TODO
+1.  The extension reports every connection to the app's `XPCServer`.
+2.  The `ConnectionLogger` batches these updates and pre-calculates dashboard statistics (top apps, traffic ratios).
+3.  The UI consumes these pre-calculated stats, allowing the dashboard to remain responsive even with tens of thousands of connections per day.
 
-- Hostname resolution: the extension receives raw IP addresses. Reverse DNS lookup is needed to show human-readable destinations.
-- eBPF: not available on macOS; `NEFilterDataProvider` is the Apple-sanctioned equivalent.
-- The extension cannot see DNS queries; a `NEDNSProxyProvider` would be needed for DNS-level blocking.
-- App requires Developer ID + notarization + System Extension entitlement for distribution.
+---
 
-## Entitlements Required
+## 🛠️ Project Tooling
 
-### App target
-- `com.apple.developer.system-extension.install` — to install the system extension
-- `com.apple.security.network.client` — for XPC
+### The Project Generator (`generate_xcodeproj.py`)
+Because macOS system extensions require complex, deterministic PBXProject configurations (entitlements, system extension embedding, Mach service registration), we use a custom Python script to generate the `.xcodeproj`. 
 
-### Extension target
-- `com.apple.developer.network-extension.content-filter` — to act as an `NEFilterDataProvider`
-- Requires a specific provisioning profile from Apple (content filter entitlement is restricted)
+This ensures that:
+*   Build configurations are consistent across environments.
+*   Deterministic IDs are used for all files and phases.
+*   All required frameworks and SPM dependencies are correctly linked.
 
-## Development Setup
+---
 
-1. Enroll in the [Apple Developer Program](https://developer.apple.com/programs/)
-2. Request the **content filter** network extension entitlement from Apple
-3. Create App ID + provisioning profiles for both targets with the required entitlements
-4. In Xcode: Product → Scheme → Edit Scheme → set `System Extension` to `enabled`
-5. On your dev Mac: `systemextensionsctl developer on` (disables SIP extension checks in dev)
-6. Build & run the app target; accept the prompt in System Settings → Privacy & Security
-
-## Dependencies
-
-- [GRDB.swift](https://github.com/groue/GRDB.swift) — SQLite for rule persistence (add via SPM)
-- Apple frameworks: `NetworkExtension`, `SystemExtensions`, `SwiftUI`, `OSLog`
+## 🛡️ Future Roadmap
+*   **NEDNSProxyProvider**: Moving DNS resolution into its own provider for even greater visibility.
+*   **Process Grouping**: Aggregating rules by application bundle rather than absolute path.
+*   **Traffic Shaping**: Adding the ability to rate-limit specific applications.

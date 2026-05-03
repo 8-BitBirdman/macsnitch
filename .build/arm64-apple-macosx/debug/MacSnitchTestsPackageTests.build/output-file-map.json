@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/primary.swiftdeps"
+  },
+  "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.derived/runner.swift": {
+    "dependencies": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/runner.d",
+    "object": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/runner.dia"
+  }
+}

@@ -1,0 +1,134 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "MacSnitchExtensionCore-arm64-apple-macosx-debug.module": ["<MacSnitchExtensionCore-arm64-apple-macosx-debug.module>"]
+  "MacSnitchShared-arm64-apple-macosx-debug.module": ["<MacSnitchShared-arm64-apple-macosx-debug.module>"]
+  "MacSnitchTests-arm64-apple-macosx-debug.module": ["<MacSnitchTests-arm64-apple-macosx-debug.module>"]
+  "MacSnitchTestsPackageTests-arm64-apple-macosx-debug.module": ["<MacSnitchTestsPackageTests-arm64-apple-macosx-debug.module>"]
+  "MacSnitchTestsPackageTests-arm64-apple-macosx-debug.test": ["<MacSnitchTestsPackageTests-arm64-apple-macosx-debug.test>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "main": ["<MacSnitchExtensionCore-arm64-apple-macosx-debug.module>","<MacSnitchShared-arm64-apple-macosx-debug.module>"]
+  "test": ["<MacSnitchExtensionCore-arm64-apple-macosx-debug.module>","<MacSnitchShared-arm64-apple-macosx-debug.module>","<MacSnitchTests-arm64-apple-macosx-debug.module>","<MacSnitchTestsPackageTests-arm64-apple-macosx-debug.test>"]
+default: "main"
+nodes:
+  "/Users/andi/.gemini/antigravity/scratch/macsnitch/NetworkExtension/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/andi/.gemini/antigravity/scratch/macsnitch/Shared/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/andi/.gemini/antigravity/scratch/macsnitch/Tests/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/andi/.gemini/antigravity/scratch/macsnitch/NetworkExtension/DNSResolver.swift","/Users/andi/.gemini/antigravity/scratch/macsnitch/NetworkExtension/RuleCache.swift"]
+    outputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/sources"]
+    description: "Write auxiliary file /Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/sources"
+
+  "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchShared.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/andi/.gemini/antigravity/scratch/macsnitch/Shared/IPCMessages.swift"]
+    outputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchShared.build/sources"]
+    description: "Write auxiliary file /Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchShared.build/sources"
+
+  "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/andi/.gemini/antigravity/scratch/macsnitch/Tests/MacSnitchTests.swift"]
+    outputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTests.build/sources"]
+    description: "Write auxiliary file /Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTests.build/sources"
+
+  "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.derived/runner.swift"]
+    outputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/sources"]
+    description: "Write auxiliary file /Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/sources"
+
+  "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.derived/runner.swift":
+    tool: test-entry-point-tool
+    inputs: []
+    outputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.derived/runner.swift"]
+
+  "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/DNSResolver.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/RuleCache.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchShared.build/IPCMessages.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTests.build/MacSnitchTests.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/runner.swift.o"]
+    outputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.product/Objects.LinkFileList"
+
+  "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Library/Developer/CommandLineTools/usr/bin/swiftc"]
+    outputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+
+  "<MacSnitchExtensionCore-arm64-apple-macosx-debug.module>":
+    tool: phony
+    inputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/DNSResolver.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/RuleCache.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchExtensionCore.swiftmodule"]
+    outputs: ["<MacSnitchExtensionCore-arm64-apple-macosx-debug.module>"]
+
+  "<MacSnitchShared-arm64-apple-macosx-debug.module>":
+    tool: phony
+    inputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchShared.build/IPCMessages.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchShared.swiftmodule"]
+    outputs: ["<MacSnitchShared-arm64-apple-macosx-debug.module>"]
+
+  "<MacSnitchTests-arm64-apple-macosx-debug.module>":
+    tool: phony
+    inputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTests.build/MacSnitchTests.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchTests.swiftmodule"]
+    outputs: ["<MacSnitchTests-arm64-apple-macosx-debug.module>"]
+
+  "<MacSnitchTestsPackageTests-arm64-apple-macosx-debug.module>":
+    tool: phony
+    inputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/runner.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchTestsPackageTests.swiftmodule"]
+    outputs: ["<MacSnitchTestsPackageTests-arm64-apple-macosx-debug.module>"]
+
+  "<MacSnitchTestsPackageTests-arm64-apple-macosx-debug.test>":
+    tool: phony
+    inputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.xctest/Contents/MacOS/MacSnitchTestsPackageTests"]
+    outputs: ["<MacSnitchTestsPackageTests-arm64-apple-macosx-debug.test>"]
+
+  "C.MacSnitchExtensionCore-arm64-apple-macosx-debug.module":
+    tool: shell
+    inputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/NetworkExtension/DNSResolver.swift","/Users/andi/.gemini/antigravity/scratch/macsnitch/NetworkExtension/RuleCache.swift","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchShared.swiftmodule","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/sources"]
+    outputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/DNSResolver.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/RuleCache.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchExtensionCore.swiftmodule"]
+    description: "Compiling Swift Module 'MacSnitchExtensionCore' (2 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","MacSnitchExtensionCore","-emit-dependencies","-emit-module","-emit-module-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchExtensionCore.swiftmodule","-output-file-map","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/sources","-I","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx13.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j11","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/include/MacSnitchExtensionCore-Swift.h","-swift-version","5","-I","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-L","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-plugin-path","/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","macsnitch"]
+
+  "C.MacSnitchShared-arm64-apple-macosx-debug.module":
+    tool: shell
+    inputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/Shared/IPCMessages.swift","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchShared.build/sources"]
+    outputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchShared.build/IPCMessages.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchShared.swiftmodule"]
+    description: "Compiling Swift Module 'MacSnitchShared' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","MacSnitchShared","-emit-dependencies","-emit-module","-emit-module-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchShared.swiftmodule","-output-file-map","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchShared.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchShared.build/sources","-I","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx13.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j11","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchShared.build/include/MacSnitchShared-Swift.h","-swift-version","5","-I","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-L","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-plugin-path","/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","macsnitch"]
+
+  "C.MacSnitchTests-arm64-apple-macosx-debug.module":
+    tool: shell
+    inputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/Tests/MacSnitchTests.swift","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchShared.swiftmodule","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchExtensionCore.swiftmodule","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTests.build/sources"]
+    outputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTests.build/MacSnitchTests.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchTests.swiftmodule"]
+    description: "Compiling Swift Module 'MacSnitchTests' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","MacSnitchTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchTests.swiftmodule","-output-file-map","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTests.build/sources","-I","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx13.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j11","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-swift-version","5","-I","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-L","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-plugin-path","/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","macsnitch"]
+
+  "C.MacSnitchTestsPackageTests-arm64-apple-macosx-debug.module":
+    tool: shell
+    inputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.derived/runner.swift","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchTests.swiftmodule","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/sources"]
+    outputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/runner.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchTestsPackageTests.swiftmodule"]
+    description: "Compiling Swift Module 'MacSnitchTestsPackageTests' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","MacSnitchTestsPackageTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchTestsPackageTests.swiftmodule","-output-file-map","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/sources","-I","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx13.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j11","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/include/MacSnitchTestsPackageTests-Swift.h","-I","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-L","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-plugin-path","/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","macsnitch"]
+
+  "C.MacSnitchTestsPackageTests-arm64-apple-macosx-debug.test":
+    tool: shell
+    inputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/DNSResolver.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/RuleCache.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchShared.build/IPCMessages.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTests.build/MacSnitchTests.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.build/runner.swift.o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.product/Objects.LinkFileList"]
+    outputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.xctest/Contents/MacOS/MacSnitchTestsPackageTests"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.xctest/Contents/MacOS/MacSnitchTestsPackageTests"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug","-o","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.xctest/Contents/MacOS/MacSnitchTestsPackageTests","-module-name","MacSnitchTestsPackageTests","-Xlinker","-no_warn_duplicate_libraries","-Xlinker","-bundle","-Xlinker","-rpath","-Xlinker","@loader_path/../../../","@/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchTestsPackageTests.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx13.0","-Xlinker","-add_ast_path","-Xlinker","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchExtensionCore.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchShared.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchTests.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/Modules/MacSnitchTestsPackageTests.swiftmodule","-I","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-L","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-plugin-path","/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/andi/.gemini/antigravity/scratch/macsnitch/NetworkExtension/","/Users/andi/.gemini/antigravity/scratch/macsnitch/Shared/","/Users/andi/.gemini/antigravity/scratch/macsnitch/Tests/","/Users/andi/.gemini/antigravity/scratch/macsnitch/Package.swift","/Users/andi/.gemini/antigravity/scratch/macsnitch/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

@@ -3,7 +3,10 @@
 
 import os, hashlib, struct, zlib
 
-ROOT = "/home/claude/macsnitch"
+ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# Ensure output directory exists
+os.makedirs(os.path.join(ROOT, "MacSnitch.xcodeproj"), exist_ok=True)
 
 def uid(seed):
     return hashlib.md5(seed.encode()).hexdigest().upper()[:24]
@@ -37,7 +40,6 @@ APP_SOURCES = [
 EXT_SOURCES = [
     "NetworkExtension/main.swift",
     "NetworkExtension/DNSResolver.swift",
-    "NetworkExtension/FilterControlProvider.swift",
     "NetworkExtension/FilterProvider.swift",
     "NetworkExtension/RuleCache.swift",
     "Shared/IPCMessages.swift",

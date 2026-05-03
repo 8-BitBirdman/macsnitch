@@ -1,0 +1,19 @@
+{
+  "": {
+    "swift-dependencies": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/primary.swiftdeps"
+  },
+  "/Users/andi/.gemini/antigravity/scratch/macsnitch/NetworkExtension/DNSResolver.swift": {
+    "dependencies": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/DNSResolver.d",
+    "object": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/DNSResolver.swift.o",
+    "swiftmodule": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/DNSResolver~partial.swiftmodule",
+    "swift-dependencies": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/DNSResolver.swiftdeps",
+    "diagnostics": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/DNSResolver.dia"
+  },
+  "/Users/andi/.gemini/antigravity/scratch/macsnitch/NetworkExtension/RuleCache.swift": {
+    "dependencies": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/RuleCache.d",
+    "object": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/RuleCache.swift.o",
+    "swiftmodule": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/RuleCache~partial.swiftmodule",
+    "swift-dependencies": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/RuleCache.swiftdeps",
+    "diagnostics": "/Users/andi/.gemini/antigravity/scratch/macsnitch/.build/arm64-apple-macosx/debug/MacSnitchExtensionCore.build/RuleCache.dia"
+  }
+}
